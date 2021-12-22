@@ -1,2 +1,1 @@
-# defaultTemplate
-Lorem impsum
+# collections
