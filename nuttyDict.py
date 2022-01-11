@@ -1,9 +1,22 @@
 from random import randint
 from string import ascii_lowercase
 
+mmColors = { #starting values
+    'rood':0,
+    'orange':0,
+    'groen':0,
+    'blauw':0,
+    'geel':0,
+    'bruin':0
+    }
 
+mmColorsNeg = {}
+mmColorsList = list(mmColors)
+for i in range(len(mmColorsList)):
+    mmColorsNeg.update({i:mmColorsList[i]})
 
 def intConvert(num):
+    num = num.lower()
     numConvert1 = False
     numConvert2 = True
     alphabet = list(ascii_lowercase) #creates list of lowercase alphabet
@@ -19,21 +32,18 @@ def intConvert(num):
         return num
 
 def mmBagFill(amount):
-    mmBagList = []
     for i in range(amount):
-        mmBagList.append(mmColors[randint(0,2)])
-    for i in range(len(mmDict)):
-        a = mmBagList.count(mmColors[i])
-        mmDict[mmColors[i]] = a
-    
-    return mmDict
+        mmColors[mmColorsNeg[randint(0,5)]] += 1
     
 
 def main():
-    ask = intConvert(input("Hoeveel M%M's?\n"))
+    ask = intConvert(input("Hoeveel M&M's?\n"))
     if isinstance(ask,int) and ask > 0:
-        print(*mmBagFill(ask),sep=', ')
-        
+        mmBagFill(ask)
+        for x,y in mmColors.items():
+            if y > 0:
+                print(f'{y}x {x}')
+
     elif type(ask) != int:
         print('niet een nummer, probeer opnieuw')
         main()
