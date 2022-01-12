@@ -1,5 +1,5 @@
 from random import randint
-from string import ascii_lowercase
+from string import ascii_lowercase,capwords
 
 mmColors = { #starting values
     'rood':0,
@@ -10,10 +10,12 @@ mmColors = { #starting values
     'bruin':0
     }
 
-mmColorsNeg = {}
-mmColorsList = list(mmColors)
-for i in range(len(mmColorsList)):
-    mmColorsNeg.update({i:mmColorsList[i]})
+def createNeg():
+    global mmColorsNeg
+    mmColorsNeg = {}
+    mmColorsList = list(mmColors)
+    for i in range(len(mmColorsList)):
+        mmColorsNeg.update({i:mmColorsList[i]})
 
 def intConvert(num):
     num = num.lower()
@@ -37,13 +39,13 @@ def mmBagFill(amount):
     
 
 def main():
+    createNeg()
     ask = intConvert(input("Hoeveel M&M's?\n"))
     if isinstance(ask,int) and ask > 0:
         mmBagFill(ask)
         for x,y in mmColors.items():
             if y > 0:
-                print(f'{y}x {x}')
-
+                print(f'{y:>2}x {capwords(x)}')
     elif type(ask) != int:
         print('niet een nummer, probeer opnieuw')
         main()

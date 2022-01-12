@@ -1,9 +1,7 @@
 from random import randint
-from string import ascii_lowercase
+from string import ascii_lowercase,capwords
 
 mmColors = ['rood','orange','groen','blauw','geel','bruin']
-
-#~210 m&m's in 200g bag 
 
 def intConvert(num):
     numConvert1 = False
@@ -20,17 +18,22 @@ def intConvert(num):
     else:
         return num
 
-def mmBagFill(amountOfColors):
+def mmBagFill(amount):
     mmBagList = []
-    for i in range(210):
-        mmBagList.append(mmColors[randint(0,amountOfColors-1)])
+    for i in range(amount):
+        mmBagList.append(mmColors[randint(0,5)])
+    for i in range(len(mmBagList)):
+        mmBagList[i] = capwords(mmBagList[i])
     return mmBagList
 
+def sortbag(list):
+    list.sort()
+    return list
+
 def main():
-    ask = intConvert(input("Hoeveel kleuren wilt u in de zak M&M's?\n"))
-    if isinstance(ask,int) and ask > 0 and ask <= len(mmColors):
-        print(*mmBagFill(ask),sep=', ')
-        
+    ask = intConvert(input("Hoeveel M&M's?\n"))
+    if isinstance(ask,int) and ask > 0:
+        print(*sortbag(mmBagFill(ask)),sep=', ')
     elif type(ask) != int:
         print('niet een nummer, probeer opnieuw\n') 
         main()
