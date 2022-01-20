@@ -1,5 +1,6 @@
 from random import randint
 from string import ascii_lowercase,capwords
+from shortcuts import intConvert
 
 mmColors = { #starting values
     'rood':0,
@@ -11,32 +12,18 @@ mmColors = { #starting values
     }
 
 def createNeg():
-    global mmColorsNeg
+    global mmColorsNeg,mmColorsList
     mmColorsNeg = {}
     mmColorsList = list(mmColors)
     for i in range(len(mmColorsList)):
         mmColorsNeg.update({i:mmColorsList[i]})
-
-def intConvert(num):
-    num = num.lower()
-    numConvert1 = False
-    numConvert2 = True
-    alphabet = list(ascii_lowercase) #creates list of lowercase alphabet
-    for i in range(10):
-        if str(i) in num:
-            numConvert1 = True
-    for x in range(26):
-        if alphabet[x] in num: #checks if a letter is present in the arg
-            numConvert2 = False
-    if numConvert1 and numConvert2: #skips == True because of if logic
-        return int(num)
-    else:
-        return num
+    #TODO return neg instead of making it global
 
 def mmBagFill(amount):
     for i in range(amount):
-        mmColors[mmColorsNeg[randint(0,5)]] += 1
-    
+        mmColors[mmColorsNeg[randint(0,len(mmColorsList)-1)]] += 1
+    #TODO Return a new dict ipv using global
+    #*nuttyList type beat
 
 def main():
     createNeg()

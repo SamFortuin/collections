@@ -1,22 +1,9 @@
+from itertools import count
 from random import randint
-from string import ascii_lowercase,capwords
+from string import capwords
+from shortcuts import *
 
 mmColors = ['rood','orange','groen','blauw','geel','bruin']
-
-def intConvert(num):
-    numConvert1 = False
-    numConvert2 = True
-    alphabet = list(ascii_lowercase) #creates list of lowercase alphabet
-    for i in range(10):
-        if str(i) in num:
-            numConvert1 = True
-    for x in range(26):
-        if alphabet[x] in num: #checks if a letter is present in the arg
-            numConvert2 = False
-    if numConvert1 and numConvert2: #skips == True because of if logic
-        return int(num)
-    else:
-        return num
 
 def mmBagFill(amount):
     mmBagList = []
@@ -30,12 +17,16 @@ def sortbag(list):
     list.sort()
     return list
 
+def sortByAmount():
+    for i in range(len(mmColors)):
+        mmColors.count(i)
+
 def main():
     ask = intConvert(input("Hoeveel M&M's?\n"))
     if isinstance(ask,int) and ask > 0:
         print(*sortbag(mmBagFill(ask)),sep=', ')
     elif type(ask) != int:
-        print('niet een nummer, probeer opnieuw\n') 
+        print('niet een nummer, probeer opnieuw\n')
         main()
     elif ask < 1:
         print('negatief getal, probeer opnieuw\n')
