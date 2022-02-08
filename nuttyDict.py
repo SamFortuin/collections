@@ -1,38 +1,49 @@
-from random import randint
+from random import randint,choice
 from string import ascii_lowercase,capwords
 from shortcuts import intConvert
 
-mmColors = { #starting values
-    'rood':0,
-    'orange':0,
-    'groen':0,
-    'blauw':0,
-    'geel':0,
-    'bruin':0
+def addMM(num):
+    mmColors = { #starting values
+        'rood':0,
+        'orange':0,
+        'groen':0,
+        'blauw':0,
+        'geel':0,
+        'bruin':0
     }
 
-def createNeg():
-    global mmColorsNeg,mmColorsList
-    mmColorsNeg = {}
-    mmColorsList = list(mmColors)
-    for i in range(len(mmColorsList)):
-        mmColorsNeg.update({i:mmColorsList[i]})
-    #TODO return neg instead of making it global
+    bagList = list(mmColors)
+    outList,numList = [],[]
 
-def mmBagFill(amount):
-    for i in range(amount):
-        mmColors[mmColorsNeg[randint(0,len(mmColorsList)-1)]] += 1
-    #TODO Return a new dict ipv using global
-    #*nuttyList type beat
+    for i in range(num):
+        outList.append(choice(bagList))
+
+    outList.sort()
+
+    for y in mmColors:
+        for x in range(outList.count(y)):
+            mmColors[y] += 1
+    
+    return mmColors
+
+def sort(inThing):
+    if isinstance(inThing,dict):
+        a = dict(sorted(inThing.items(), key=lambda item: item[1])) 
+        return a #returns the dict after sorting it
+    elif isinstance(inThing,list):
+        a = inThing.sort()
+        return a
+    else:
+        print('input is not sortable, try again')
 
 def main():
-    createNeg()
     ask = intConvert(input("Hoeveel M&M's?\n"))
     if isinstance(ask,int) and ask > 0:
-        mmBagFill(ask)
-        for x,y in mmColors.items():
+        temp = addMM(ask)
+        temp = sort(temp)
+        for x,y in temp.items():
             if y > 0:
-                print(f'{y:>2}x {capwords(x)}')
+                print(f'{y}x {capwords(x)}')
     elif type(ask) != int:
         print('niet een nummer, probeer opnieuw')
         main()
@@ -40,4 +51,9 @@ def main():
         print('negatief getal, probeer opnieuw')
         main()
 
-main()
+if __name__ == '__main__':
+    main()
+
+#[x] return dict instead of it being global
+#[x] add entries to dict
+#[x] sort dict based on size

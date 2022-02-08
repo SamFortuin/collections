@@ -35,4 +35,5 @@ def main():
         print('zoveel kleuren zijn er niet, probeer opnieuw\n')
         main()
 
-main()
+if __name__ == '__main__':
+    main()
